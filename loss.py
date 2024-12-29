@@ -6,12 +6,25 @@ from model_utils import rot_mat2r6d
 
 
 class MotionLoss(nn.Module):
+    """
+    Motion loss function :)
+    This loss calculates rotation error and translation error :)
+    """
     def __init__(self, configs: ModelConfig) -> None:
+        """
+        :param configs: model configurations :)
+        """
         super().__init__()
         self.configs = configs
         self.mae = nn.SmoothL1Loss(beta=0.01)
 
-    def forward(self, predicts: dict, targets: dict):
+    def forward(self, predicts: dict, targets: dict) -> tuple[torch.Tensor, torch.Tensor]:
+        """
+        calculate losses :)
+        :param predicts: model predictions :)
+        :param targets: ground truth :)
+        :return: main losses and auxiliary losses :
+        """
         main_loss = 0
         aux_loss = 0
 
