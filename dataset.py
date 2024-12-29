@@ -14,7 +14,7 @@ class CustomDataset(Dataset):
     Custom dataset for TSPose Model.
     """
 
-    def __init__(self, configs: ModelConfig, phase: str):
+    def __init__(self, configs: ModelConfig, phase: str) -> None:
         r"""
         :param phase: dataset for Train or Valid
         :param configs: configs
@@ -36,13 +36,13 @@ class CustomDataset(Dataset):
         self.batch_size = configs.batch_size
         self.num_worker = configs.num_worker
 
-    def __len__(self):
+    def __len__(self) -> int:
         r"""
         :return number of data in dataset
         """
         return len(self.files)
 
-    def __getitem__(self, idx):
+    def __getitem__(self, idx) -> dict[str, torch.Tensor]:
         r"""
         load data
         :param idx: data index
@@ -64,7 +64,7 @@ class CustomDataset(Dataset):
 
         return x
 
-    def get_data_loader(self):
+    def get_data_loader(self) -> DataLoader:
         r"""
         get data loader for dataset
         :return: data loader

@@ -4,7 +4,7 @@ import torch
 import gc
 
 
-def collate_fn(batch):
+def collate_fn(batch) -> dict[str, torch.Tensor]:
     r"""
     stack data to create batch.
     :param batch: list of data.
