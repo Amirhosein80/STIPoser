@@ -162,9 +162,7 @@ def process_dip(smpl_path, dip_path) -> None:
             continue
 
         folder = file.split("\\")[1]
-        # dip_trans_file = os.path.join(dip_path, 'dip_trans_data', folder,
-        #                               os.path.basename(file).replace(".pkl", ".npz"))
-        # trans = torch.from_numpy(np.load(dip_trans_file)["arr_0"]).to("cuda")
+
         trans = torch.zeros(pose.shape[0], 3)
 
         acc, ori, pose = acc[6:-6], ori[6:-6], pose[6:-6]
