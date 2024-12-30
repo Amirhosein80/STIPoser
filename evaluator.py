@@ -1,14 +1,13 @@
-import os
-import glob
-import numpy as np
 import gc
+import glob
+
+import numpy as np
+import roma
+import torch
 import tqdm
 
-import torch
-import roma
-
-from model import STIPoser
 from configs import ModelConfig
+from model import STIPoser
 from smpl_model import ParametricModel
 
 
@@ -192,15 +191,14 @@ class PoseEvaluator:
 
 
 if __name__ == "__main__":
-    VALID_DIR = r"./data/Test"
-    tc_files = glob.glob(os.path.join(VALID_DIR, "DIP*/*/*.npz"))
+    files = glob.glob(r"./data/Valid/TC*/*/*.npz")
     model_config = ModelConfig()
     model_config.device = "cuda"
 
     smpl = ParametricModel(official_model_file=model_config.smpl_dir, device=model_config.device)
 
     model = STIPoser(configs=model_config, smpl_model=smpl)
-    model = resume(model=model, path=r"train_log/model_final_SA2/checkpoint/best_model_final_SA2.pth")
+    model = resume(model=model, path=r"./data/best_model.pth")
 
-    evaluator = PoseEvaluator(model=model, data_files=tc_files, configs=model_config)
+    evaluator = PoseEvaluator(model=model, data_files=files, configs=model_config)
     evaluator.run()

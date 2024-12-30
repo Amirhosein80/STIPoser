@@ -79,7 +79,7 @@ def plot_trans(predict, target):
     gc.collect()
 
 
-def visualize(model: torch.nn.Module, data_file: list[str]):
+def visualize(model: torch.nn.Module, data_file: str):
     imu_acc = load_data(data_file, device=model_config.device)["imu_acc"][:-10]
     imu_ori = load_data(data_file, device=model_config.device)["imu_ori"][:-10]
 
@@ -128,9 +128,9 @@ def visualize(model: torch.nn.Module, data_file: list[str]):
     v.scene.add(gt_mesh)
     v.run()
 
+
 if __name__ == "__main__":
-    VALID_DIR = r"./data/Valid"
-    tc_files = glob.glob(os.path.join(VALID_DIR, "TC*/*/*.npz"))
+    files = glob.glob(r"./data/Valid/TC*/*/*.npz")
     model_config = ModelConfig()
     model_config.device = "cpu"
 
@@ -138,5 +138,5 @@ if __name__ == "__main__":
                                       device=model_config.device)
 
     model = STIPoser(configs=model_config, smpl_model=smpl)
-    model = resume(model=model, path=r"train_log/model_final_SA2/checkpoint/best_model_final_SA2.pth")
-    visualize(model, data_file=tc_files[5])
+    model = resume(model=model, path=r"./data/best_model.pth")
+    visualize(model, data_file=files[5])
