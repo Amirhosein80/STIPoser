@@ -1,0 +1,9 @@
+torch~=2.5.1+cu121
+matplotlib~=3.9.1
+torchinfo~=1.8.0
+numpy~=1.26.4
+tensorboardx~=2.6.2.2
+tqdm~=4.66.4
+roma~=1.5.0
+aitviewer~=1.13.0
+onnx~=1.16.1
